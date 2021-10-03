@@ -3,7 +3,8 @@ const path = require('path');
 const { ApolloServer } = require('apollo-server-express');
 const db = require('./config/connection');
 const { typeDefs, resolvers } = require('./schemas');
-const routes = require('./routes'); // REMOVE THIS
+
+// const routes = require('./routes'); // REMOVE THIS
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -26,7 +27,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.use(routes); // REMOVE THIS
+// app.use(routes); // REMOVE THIS
 
 db.once('open', () => {
   app.listen(PORT, () => {
