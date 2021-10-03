@@ -41,8 +41,10 @@ const resolvers = {
             return {token, user };
         },
         
-        saveBook: async () => {
-
+        saveBook: async (parent, {bookId, authors, title, description, image}, context) => {
+            // if (context.user) {
+            //     const book = "",
+            // }
         },
 
         removeBook: async () => {
