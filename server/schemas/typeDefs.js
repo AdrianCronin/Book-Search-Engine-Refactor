@@ -25,7 +25,8 @@ const typeDefs = gql`
     }
 
     type Query {
-        me(_id: ID!): User
+        users: [User]
+        me: User
     }
 
 `;
