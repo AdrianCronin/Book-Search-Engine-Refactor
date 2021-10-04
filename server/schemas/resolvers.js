@@ -21,13 +21,13 @@ const resolvers = {
             const user = await User.findOne({ email });
 
             if (!user) {
-                throw new AuthenticationError('No user found with the given email');
+                throw new AuthenticationError('No user found with the given email'); // change this once done testing
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                throw new AuthenticationError('Wrong password')
+                throw new AuthenticationError('Wrong password') // change this once done testing
             }
 
             const token = signToken(user);
