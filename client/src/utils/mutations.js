@@ -1,25 +1,25 @@
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
-    query () {
+    mutation () {
         
     }
 `;
 
 export const ADD_USER = gql`
-    query () {
+    mutation () {
         
     }
 `;
 
 export const SAVE_BOOK = gql`
-    query () {
+    mutation () {
         
     }
 `;
 
 export const REMOVE_BOOK = gql`
-    query () {
+    mutation () {
         
     }
 `;
