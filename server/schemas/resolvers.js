@@ -17,39 +17,39 @@ const resolvers = {
     },
 
     Mutation: {
-        login: async (parent, {email, password}) => {
-            const user = await User.findOne({email});
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
 
-            if(!user) {
-                throw new AuthenticationError('No user found with the given email/password');
+            if (!user) {
+                throw new AuthenticationError('No user found with the given email');
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                throw new AuthenticationError('No user found with the given email/password')
+                throw new AuthenticationError('Wrong password')
             }
 
             const token = signToken(user);
 
-            return {token, user};
+            return { token, user };
         },
 
-        addUser: async (parent, {username, email, password}) => {
-            const user = await User.create({username, email, password});
+        addUser: async (parent, { username, email, password }) => {
+            const user = await User.create({ username, email, password });
             const token = signToken(user);
-            return {token, user };
-        },
-        
-        saveBook: async (parent, {bookId, authors, title, description, image}, context) => {
-            // if (context.user) {
-            //     const book = "",
-            // }
+            return { token, user };
         },
 
-        removeBook: async () => {
+        // saveBook: async (parent, { bookId, authors, title, description, image }, context) => {
+        //     // if (context.user) {
+        //     //     const book = "",
+        //     // }
+        // },
 
-        },
+        // removeBook: async () => {
+
+        // },
     }
 };
 
