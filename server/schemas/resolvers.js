@@ -10,7 +10,7 @@ const resolvers = {
 
         me: async (parent, args, context) => {
             if (context.user) {
-                return User.findeOne({ _id: context.user._id });
+                return User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError('You need to be logged in!');
         },
