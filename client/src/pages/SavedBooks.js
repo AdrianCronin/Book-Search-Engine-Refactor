@@ -10,7 +10,9 @@ import { removeBookId } from '../utils/localStorage';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  const { loading, error, data } = useQuery(GET_ME);
+  const { loading, error, data } = useQuery(GET_ME, {
+    fetchPolicy: "network-only"
+  });
   const [removeBook, { }] = useMutation(REMOVE_BOOK, {
     refetchQueries: [GET_ME],
   });
