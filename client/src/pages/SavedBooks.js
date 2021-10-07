@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 import { useQuery, useMutation } from '@apollo/client';
@@ -13,7 +13,10 @@ const SavedBooks = () => {
   const { loading, error, data } = useQuery(GET_ME, {
     fetchPolicy: "network-only"
   });
-  const [removeBook, { }] = useMutation(REMOVE_BOOK, {
+  if (error) {
+    console.error(error);
+  }
+  const [removeBook,] = useMutation(REMOVE_BOOK, {
     refetchQueries: [GET_ME],
   });
   const userData = data?.me;
