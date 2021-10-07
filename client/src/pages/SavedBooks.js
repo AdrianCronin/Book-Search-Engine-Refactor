@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-import { deleteBook } from '../utils/API'; // pulled out {getMe} 
-import { useQuery } from '@apollo/client';
+// import { deleteBook } from '../utils/API'; // pulled out {getMe} 
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 
 
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
+import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
 
-  const {loading, error, data} = useQuery(GET_ME);
+  const { loading, error, data } = useQuery(GET_ME);
+  const [removeBook, { }] = useMutation(REMOVE_BOOK, {
+    refetchQueries: [GET_ME],
+  });
   const userData = data?.me;
-
-  console.log(error);
-  console.log(userData);
 
   // use this to determine if `useEffect()` hook needs to run again
   // const userDataLength = Object.keys(userData).length;
@@ -47,7 +48,7 @@ const SavedBooks = () => {
   // }, [userDataLength]);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
-  
+
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -56,14 +57,19 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await deleteBook(bookId, token);
+      // const response = await deleteBook(bookId, token);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      // if (!response.ok) {
+      //   throw new Error('something went wrong!');
+      // }
 
-      const updatedUser = await response.json();
+      // const updatedUser = await response.json();
       // setUserData(updatedUser);
+
+      const { data } = await removeBook({
+        variables: { bookId },
+      });
+
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
